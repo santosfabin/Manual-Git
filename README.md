@@ -7,7 +7,6 @@
 - [Pré-Configuração](#pré-configuração)
 - [Ajeitando Github](#ajeitando-github)
 - [Primeiro envio](#primeiro-envio)
-- [Não esta “main”?](#não-esta-“main”?)
 - [Próximos envios](#próximos-envios)
 - [Aprendendo a usar uma Branch](#aprendendo-a-usar-uma-branch)
 - [Juntando Branchs](#juntando-branchs)
