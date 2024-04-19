@@ -11,7 +11,8 @@
 - [Aprendendo a usar uma Branch](#aprendendo-a-usar-uma-branch)
 - [Juntando Branchs](#juntando-branchs)
 - [Pegando do repositório](#pegando-do-repositório)
-- [Atualizando repositório git](#atualizando-repositório-git)
+- [Baixando e mesclando do repositório git](#baixando-e-mesclando-do-repositório-git)
+- [Atualizando o repositório git](#atualizando-o-repositório-git)
 - [Criando Fork](#criando-fork)
 - [Vendo commits](#vendo-commits)
 - [Concertando commits](#concertando-commits)
@@ -55,7 +56,8 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git switch](#trocando-para-a-branch-criada)
 - [git checkout](#criando-e-usando)
 - [git merge](#juntando-branchs)
-- [git pull](#puxando-alterações)
+- [git pull](#puxando-e-mesclando-alterações)
+- [git fetch](#puxando-alterações)
 - [git revert](#desfazendo-commits-sem-mudar-o-histórico)
 - [git reset --soft](#desfazendo-commits-mudando-o-histórico-sem-apagar-as-modificações-já-feitas)
 - [git reset --hard](#desfazendo-commits-mudando-o-histórico-apagando-os-selecionados)
@@ -488,17 +490,59 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 
 ---
 
-## Atualizando repositório git
+## Baixando e mesclando do repositório git
 
-### Puxando alterações
+### Puxando e mesclando alterações
 
+- O `git pull` baixando e mesclando as alterações do repositório remoto na sua branch local em um único comando.
 - Para isso, devemos estar dentro da pasta do repositório e usar o comando `git pull`.
 - Simples assim:
     
     ```bash
+    git pull origin main
+    # ou
     git pull
     ```
     
+
+---
+
+## Atualizando o repositório git
+
+### Puxando alterações
+
+- O `git fetch` baixa as **atualizações** do repositório remoto para o seu repositório local, atualizando as referências remotas (como **`origin/main`**, **`origin/nova-branch`**), mas não mescla automaticamente as alterações na sua branch local.
+- Basicamente ela serve para quando quiser apenas baixar as atualizações do repositório remoto para revisá-las antes de decidir como integrá-las no seu trabalho local.
+- Simples assim:
+    
+    ```bash
+    git fetch origin
+    ```
+    
+
+### Mesclando
+
+- Depois de você já ter feito o fetch e queria queira mesclar com sua branch existem alguns casos.
+1. Você está dentro da Branch correta.
+    1. Neste caso você pode simplesmente usar o `git merge`:
+        
+        ```bash
+        git merge
+        ```
+        
+2. Você está em outra branch.
+    1. Neste caso você deverá especificar o repositório e a branch, por exemplo `origin/main`:
+        
+        ```bash
+        git merge origin/main
+        ```
+        
+3. Você está em outra branch e vai dar merge para outra branch.
+    1. Neste caso você fará semelhante ao exemplo passado, porém ao invés de `main` será a branch que você fará o merge:
+        
+        ```bash
+        git merge origin/branch
+        ```
 
 ---
 
