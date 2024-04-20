@@ -3,6 +3,7 @@
 ## Índice
 - [Nomenclaturas](#nomenclaturas)
 - [Índice dos comandos](#índice-dos-comandos)
+- [Objetivo](#objetivo)
 - [Baixando Git](#baixando-git)
 - [Pré-Configuração](#pré-configuração)
 - [Ajeitando Github](#ajeitando-github)
