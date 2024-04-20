@@ -20,6 +20,7 @@
 - [Concertando commits](#concertando-commits)
 - [Um commit por conteúdo](#um-commit-por-conteúdo)
 - [Diferentes commits por um arquivo](#diferentes-commits-por-um-arquivo)
+- [Diferença entre local e remoto](#diferença-entre-local-e-remoto)
 
 ---
 
@@ -933,3 +934,32 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
     ![Untitled](Desvendando%20o%20GIT/Untitled%2012.png)
     
 - A partir disso você cria seus commits do jeito que quiser.
+
+---
+
+## Diferença entre local e remoto
+
+- Já que você sabe que existem diferenças do remoto e local, você pode usar o `fetch` para pegar o que tem no remoto:
+    
+    ```bash
+    git fetch origin
+    ```
+    
+- Agora você pode ver as mudanças usando o `diff`:
+    
+    ```bash
+    git diff main origin/main
+    ```
+    
+    Ele compara a nossa main local com o origin/main remoto.
+    
+- Se estiver tudo bem fazer uma mesclagem, você pode fazer o `merge`:
+    
+    ```bash
+    git merge origin/main main
+    ```
+    
+    Ele vai mesclar o origin/main remoto com nossa main local.
+    
+- Ele vai mostrar onde ele fez as alterações por meio de um comentário, então é so apagar o comentário.
+- Se você estiver no vs code você pode clicar em uma das opções, então ele irá apagar automaticamente.
