@@ -21,6 +21,7 @@
 - [Um commit por conteúdo](#um-commit-por-conteúdo)
 - [Diferentes commits por um arquivo](#diferentes-commits-por-um-arquivo)
 - [Diferença entre local e remoto](#diferença-entre-local-e-remoto)
+- [Apaguei meus commits](#apaguei-meus-commits)
 
 ---
 
@@ -71,6 +72,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git reset --hard](#desfazendo-commits-mudando-o-histórico-apagando-os-selecionados)
 - [git diff](#vendo-modificações)
 - [git add -p](#explicação)
+- [git reflog](#pelo-terminal)
 
 ---
 
@@ -963,3 +965,51 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
     
 - Ele vai mostrar onde ele fez as alterações por meio de um comentário, então é so apagar o comentário.
 - Se você estiver no vs code você pode clicar em uma das opções, então ele irá apagar automaticamente.
+
+---
+
+## Apaguei meus commits
+
+### Cenário do ocorrido
+
+- Vamos supor que você apagou muitos commits sem querer.
+- Você pode restaurar de 2 jeitos seus commits.
+
+### Pelo Github
+
+- Você pode usar os commits remotos do github e ir até o commit que você precisa, ou simplesmente para o ultimo commit que você tem remoto.
+- Basta ir no seu repositório e copiar o hash do commit que você deseja voltar até aquele ponto.
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2013.png)
+    
+- Agora vamos usar o `reset --hard` para forçar apagando tudo o que você fez até aquele ponto daquele commit:
+    
+    ```bash
+    git reset --hard <commit_hash>
+    ```
+    
+- Se você não quiser apagar as alterações que você fez, você pode fazer a mesma coisa, porém usando o `--soft` no lugar do `--hard`:
+    
+    ```bash
+    git reset --soft <commit_hash>
+    ```
+    
+
+### Pelo terminal
+
+- Aqui entra um ponto super importante, o `git reflog`.
+- Ele é uma ferramenta muito poderosa, pois nele é onde a gente tem nosso histórico de atividades, esse histórico é feito a partir da mudança do ponto do `HEAD`.
+- Ele também mostra pontos de reset, checkout e outros.
+- Então podemos pegar diversos pontos para voltar até ele, bastando copiar a hash, que é o primeiro valos a ser mostrado.
+- Depois de copiar a hash de um commit que deseja voltar até aquele ponto, vamos usar o `git reset --hard <hash>` ou `gir reset --soft <hash>`:
+    - `reset --hard` para forçar apagando tudo o que você fez até aquele ponto daquele commit:
+        
+        ```bash
+        git reset --hard <hash>
+        ```
+        
+    - Se você não quiser apagar as alterações que você fez, você pode fazer a mesma coisa, porém usando o `--soft` no lugar do `--hard`:
+        
+        ```bash
+        git reset --soft <hash>
+        ```
