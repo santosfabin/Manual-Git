@@ -13,10 +13,12 @@
 - [Pegando do repositório](#pegando-do-repositório)
 - [Baixando e mesclando do repositório git](#baixando-e-mesclando-do-repositório-git)
 - [Atualizando o repositório git](#atualizando-o-repositório-git)
+- [Alterações temporárias](#alterações-temporárias)
 - [Criando Fork](#criando-fork)
 - [Vendo commits](#vendo-commits)
 - [Concertando commits](#concertando-commits)
 - [Um commit por conteúdo](#um-commit-por-conteúdo)
+- [Diferentes commits por um arquivo](#diferentes-commits-por-um-arquivo)
 
 ---
 
@@ -50,14 +52,18 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git init](#iniciando-um-repositório)
 - [git add](#staging-area)
 - [git status](#status)
+- [git commit](#usando-um-commit)
 - [git remote](#hospedado-em-outro-local)
 - [git push](#enviando-conteúdo)
 - [git branch](#aprendendo-a-usar-uma-branch)
 - [git switch](#trocando-para-a-branch-criada)
 - [git checkout](#criando-e-usando)
 - [git merge](#juntando-branchs)
+- [git clone](#pegando-do-repositório)
 - [git pull](#puxando-e-mesclando-alterações)
 - [git fetch](#puxando-alterações)
+- [git stash](#alterações-temporárias)
+- [git log](#vendo-commits)
 - [git revert](#desfazendo-commits-sem-mudar-o-histórico)
 - [git reset --soft](#desfazendo-commits-mudando-o-histórico-sem-apagar-as-modificações-já-feitas)
 - [git reset --hard](#desfazendo-commits-mudando-o-histórico-apagando-os-selecionados)
@@ -326,7 +332,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - Quando você utiliza o comando **`git checkout`** para visualizar um commit específico, ele altera temporariamente o ponteiro de visualização (**`HEAD`**) e o estado do diretório de trabalho para corresponder ao estado do código naquele commit específico. Isso permite que você veja como era o código naquele momento no histórico de commits.
 - No entanto, quaisquer alterações que você fizer após essa visualização serão realizadas no contexto da branch atual, não no commit específico que você estava visualizando. Se você fizer um commit ou push, essas operações serão realizadas na branch atual, não no commit visualizado.
 - Portanto, é importante ter em mente que o **`git checkout`** para visualização é apenas uma operação temporária e não afeta permanentemente o estado do seu repositório.
-- Para ver as hashs dos commits use git log
+- Para ver as hashs dos commits use [git log](#vendo-commits)
     
     ```bash
     git checkout hash-do-commit
@@ -543,6 +549,99 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
         ```bash
         git merge origin/branch
         ```
+---
+
+## Alterações temporárias
+
+### O que é o `git stash`
+
+- Gerenciar temporariamente alterações no seu diretório de trabalho enquanto você trabalha em diferentes tarefas ou branches, sem a necessidade de fazer commits.
+- Então para cada stash ele apaga temporariamente o que você tem, até o ultimo commit.
+- Por exemplo, você salvou um texto e já fez o commit dele, ai você escreve um segundo texto e em seguida usa o `git stash`, ele vai apagar temporariamente o segundo texto, e voltar no commit passado, onde somente existia o primeiro texto, o segundo texto voltará quando você chamar de volta.
+
+### Salvando
+
+- Ele salva as alterações no diretório de trabalho em um stash **temporário**.
+- Você pode usar de duas maneiras:
+1. Sem título
+    
+    ```bash
+    git stash
+    ```
+    
+2. Com título
+    
+    ```bash
+    git stash save "Alterações temporárias"
+    ```
+    
+
+### Listando
+
+- Com o `git stash list` ele vai listar as `git stash` que existem.
+    
+    ```bash
+    git stash list
+    ```
+    
+
+### Restaurando sem apagar ponto de salvamento
+
+- Aplica as alterações do último stash no diretório de trabalho sem remover o stash.
+- Isso quer dizer que, ele vai voltar o que você tinha feito, sem apagar esse ponto de salvamento que ele usou.
+- Você pode usar de duas maneiras:
+1. Pegando o ultima stash feito:
+    
+    ```bash
+    git stash apply
+    ```
+    
+2. Escolhendo a stash:
+    
+    ```bash
+    git stash apply stash@{1}
+    ```
+    
+
+### Restaurando apagando ponto de salvamento
+
+- Aplica as alterações do último stash no diretório de trabalho removendo o stash usado.
+- Isso quer dizer que, ele vai voltar o que você tinha feito, apagando esse ponto de salvamento que ele usou.
+1. Pegando o ultima stash feito:
+    
+    ```bash
+    git stash pop
+    ```
+    
+2. Escolhendo a stash:
+    
+    ```bash
+    git stash pop stash@{1}
+    ```
+    
+
+### Apagando ponto de salvamento
+
+- Cuidado antes de usar o `git stash clear`, porque se você não tiver voltado seu salvamento, você perderá TUDO que fez, ou seja, você vai voltar a ter somente o que seu ultimo commit tem.
+    
+    ```bash
+    git stash clear
+    ```
+    
+
+### Diferenças entre stashs
+
+- O `git stash show` vai mostra as diferenças entre o stash mais recente e o commit anterior.
+    
+    ```bash
+    git stash show
+    ```
+    
+- Com a adição do `-p` ele via mostrar as diferenças entre o stash mais recente e o commit anterior, com detalhes.
+    
+    ```bash
+    git stash show -p
+    ```
 
 ---
 
@@ -805,9 +904,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - Existem essas letras com seu significado próprio
     
     
-    | y | encenar esse pedaço
-     |
-    | --- | --- |
+    | y | encenar esse pedaço |
     | n | não encena esse pedaço |
     | q | sair; não encene este pedaço ou qualquer um dos restantes |
     | a | prepare este pedaço e todos os pedaços posteriores no arquivo |
