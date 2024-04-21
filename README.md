@@ -22,6 +22,7 @@
 - [Diferentes commits por um arquivo](#diferentes-commits-por-um-arquivo)
 - [Diferença entre local e remoto](#diferença-entre-local-e-remoto)
 - [Apaguei meus commits](#apaguei-meus-commits)
+- [Reorganização do Histórico](#reorganização-do-histórico)
 
 ---
 
@@ -1013,3 +1014,86 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
         ```bash
         git reset --soft <hash>
         ```
+
+---
+
+## Reorganização do Histórico
+
+### Mesclando commits
+
+- Vamos imaginar que acabou acontecendo de ser feito 2 commits sem muito sentido e eles poderiam claramente serem um commit só.
+- Lembrando que essa mesclagem acontecerá e o commit da mesclagem vai substituir os commits mesclados, ficando no lugar do commit mais atual.
+- Então se exister commits do A até o J, e a mesclagem for do D e G, o ponto de commit da mesclagem vai ficar no G
+- Agora vamos fazer a mesclagem.
+- Precisamos saber o ponto que o HEAD vai ficar, ou a hash do commit mais antigo, pois assim ele vai conseguir englobar o resto dos commits.
+    
+    ```bash
+    git log --oneline
+    ```
+    
+- Vamos usar o `git rebase` com a adição do `-i` a opção interativa.
+    
+    ```bash
+    git rebase -i HEAD~4
+    ```
+    
+- Isso abrirá o editar VIM.
+- Nela você pode apertar `INSERT` e perceba que na parte inferior ele esta `-- INSERT --`, então agora basta ir diretamente editar o que precisamos.
+- Então para os commits que deseja troque o `pick` por `squash`(esmagar) e salve o arquivo.
+- Porém para o primeiro que será mesclado, não precisa trocar de pick para squash.
+    - `ESC` → `:wq` → `ENTER`
+- Agora mude o nome do commit afim de refletir as alterações.
+- Finalize o rebase:
+    
+    ```bash
+    git rebase --continue
+    ```
+    
+- Você tem a opção de forçar esse envio, sem commit ou novos arquivos:
+    
+    ```bash
+    git push origin main -f
+    ```
+    
+- Ou você pode fazer o que você precisa fazer, depois você envia o que você precisa com um commit, então ele vai arrumar para você a alteração que você fez.
+
+### Mudando nomes de commits passados
+
+- Imagine que você fez um commit e ele saiu com a escrita errada.
+- Você não precisa apagar ele e mandar outro commit arrumando.
+- O `git rebase` com a adição do `-i` tem a opção interativa.
+- Então para renomear, vamos precisar de algumas coisas, começando pelo hash do commit.
+    
+    ```bash
+    git log --oneline
+    ```
+    
+- Agora com o hash ou com a marcação de quanto você precisa para usar o HEAD, vamos usar o `git rebase`:
+    
+    ```bash
+    git rebase -i HEAD~6
+    ```
+    
+- Perceba que ele abriu uma telinha para configuração usando o VIM.
+- Nela você pode apertar `INSERT` e perceba que na parte inferior ele esta `-- INSERT --`, então agora basta ir diretamente editar o que precisamos.
+- No commit que deseja editar, troque de `pick` para `edit` e salve o arquivo.
+    - `ESC` → `:wq` → `ENTER`
+- Agora basta usar o `--amend` do commit para editar o texto:
+    
+    ```bash
+    git commit --amend -m "Commit certo"
+    ```
+    
+- Agora que você já arrumou, use:
+    
+    ```bash
+    git rebase --continue
+    ```
+    
+- Você tem a opção de forçar esse envio, sem commit ou novos arquivos:
+    
+    ```bash
+    git push origin main -f
+    ```
+    
+- Ou você pode fazer o que você precisa fazer, depois você envia o que você precisa com um commit, então ele vai arrumar para você a alteração que você fez.
