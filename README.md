@@ -406,9 +406,18 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - Apaga forçando sua branch
     
     ```bash
-    git branch -D nome_da_branch
+    git branch -D <nome_da_branch>
     ```
     
+    Este comando é usado para excluir uma ramificação localmente no seu repositório Git **local**. 
+    
+- Ou então:
+    
+    ```bash
+    git push origin --delete <nome_da_branch>
+    ```
+    
+    Este comando é usado para excluir uma ramificação específica no repositório **remoto**.
 
 ### Movendo ou Renomear uma Branch
 
