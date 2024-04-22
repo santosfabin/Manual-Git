@@ -1028,6 +1028,77 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 
 ## Reorganização do Histórico
 
+### Reposicionando a base de uma branch
+
+- O `git rebase` tem o poder de reposicionar uma branch, por exemplo para o ponto mais atual da main.
+- Isso fará que essa ramificação seja atualizada, então isso pode ser facilmente usado de atualização.
+- Isso seria feito da seguinte forma:
+- Imagine que existe a `main` e a partir do ponto de commit (`main2`) ele teve uma ramificação `efieto` e a `main` continuou tendo atualizações.
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2019.png)
+    
+- main
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2014.png)
+    
+- efeito
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2015.png)
+    
+- Se for preciso fazer um merge dos conteúdos vai dar divergências.
+- Para evitar isso, precisamos concertar essa branch `efeito` para depois fazer um merge sem problemas, pois se mandarmos assim vai ter um conflito.
+- O que precisamos fazer é deixar a base do `efeito` para o mais atual, assim ele terá tudo que a main tem + o próprio conteúdo.
+- Ficando assim:
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2020.png)
+    
+- Então após essa atualização, não terá mais conflitos para resolver.
+- Então vamos aos comandos.
+- Primeiro precisamos ir para a branch que será atualizada LOCALMENTE.
+- Depois usaremos o comando:
+    
+    ```bash
+    git rebase <branch>
+    ```
+    
+- Perceba que no seu editor ele marca onde ocorreu as divergências, então basta você editar o que você precisa.
+- Isso tudo somente do primeiro commit do `efeito`.
+- É possível saber disso no seu terminal.
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2016.png)
+    
+- Após editar seu arquivo editando as modificações, no seu terminal você pode continuar a usar o `rebase`.
+- Mas antes disso é obrigatório usar o `git add` para confirmar as alterações e conseguir editar o histórico.
+    
+    ```bash
+    git add arquivo.txt
+    git rebase --continue
+    ```
+    
+- Ou você pode dar um `--skip` e pular para o ultimo commit, mas cuidado, pode ter alterações que podem ser passado despercebido, então tenha cuidado ao fazer isso, e veja antes de pular se as alterações estão OK para você.
+- Também ele sumirá com o commit caso você o pule, então tenha mais cuidado ainda.
+    
+    ```bash
+    git rebase --skip
+    ```
+    
+- Ao chegar no ultimo arquivo e você ainda desejar continuar com esse processo para atualizar, apague os comentários do git, então ajeite seus arquivos e de continuidade.
+    
+    ```bash
+    git rebase --continue
+    ```
+    
+- Perceba que ele abriu no seu terminal um editor para você mudar o nome do commit, então mude ou deixe o mesmo, e se for o VIM saia da seguinte maneira.
+    - `ESC` -> `:wq` -> `ENTER`
+- Agora no seu próximo push ele fará essa alteração na sua branch.
+- Exemplo usando o `--skip`:
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2017.png)
+    
+- Exemplo sem o `--skip` fazendo um por um:
+    
+    ![Untitled](Desvendando%20o%20GIT/Untitled%2018.png)
+
 ### Mesclando commits
 
 - Vamos imaginar que acabou acontecendo de ser feito 2 commits sem muito sentido e eles poderiam claramente serem um commit só.
