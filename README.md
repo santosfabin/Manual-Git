@@ -74,6 +74,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git diff](#vendo-modificações)
 - [git add -p](#explicação)
 - [git reflog](#pelo-terminal)
+- [git rebase](#reorganização-do-histórico)
 
 ---
 
