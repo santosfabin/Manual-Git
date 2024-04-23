@@ -25,6 +25,7 @@
 - [Reorganização do Histórico](#reorganização-do-histórico)
 - [Selecionando Commits específicos](#selecionando-commits-específicos)
 - [Encontrando bug](#encontrando-bug)
+- [Atribuindo tags](#atribuindo-tags)
 
 ---
 
@@ -79,6 +80,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git rebase](#reorganização-do-histórico)
 - [git cherry-pick](#selecionando-commits-específicos)
 - [git bisect](#encontrando-bug)
+- [git tag](#atribuindo-tags)
 
 ---
 
@@ -1270,4 +1272,51 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
     
     ```bash
     git bisect reset
+    ```
+
+---
+
+## Atribuindo tags
+
+### Por que usar tags?
+
+- Elas simplificam a organização, comunicação e reversão do código, além de servirem como documentação automática e seguirem um padrão da indústria.
+- As tags podem substituir o uso direto de hashes de commits, oferecendo uma abordagem mais amigável e legível para identificar momentos importantes no histórico do projeto.
+
+### Usando
+
+- Você pode simplesmente já colocar uma tag no commit que você está:
+    
+    ```bash
+    git tag v1.0.0
+    ```
+    
+- Caso precise colocar em outro commit, apenas adicione a hash dele ao fim:
+    
+    ```bash
+    git tag v1.0.0 1a2b3c4d
+    ```
+    
+
+### Vendo as tags
+
+- Listando as tags:
+    
+    ```bash
+    git tag
+    ```
+    
+
+### Comparação de usar e não usar tags
+
+- Sem usar Tag:
+    
+    ```bash
+    git checkout 1a2b3c4d
+    ```
+    
+- Usando Tag:
+    
+    ```bash
+    git checkout v1.0.0
     ```
