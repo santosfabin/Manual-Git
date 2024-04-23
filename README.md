@@ -24,6 +24,7 @@
 - [Apaguei meus commits](#apaguei-meus-commits)
 - [Reorganização do Histórico](#reorganização-do-histórico)
 - [Selecionando Commits específicos](#selecionando-commits-específicos)
+- [Encontrando bug](#encontrando-bug)
 
 ---
 
@@ -77,6 +78,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git reflog](#pelo-terminal)
 - [git rebase](#reorganização-do-histórico)
 - [git cherry-pick](#selecionando-commits-específicos)
+- [git bisect](#encontrando-bug)
 
 ---
 
@@ -1213,4 +1215,59 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
     
     ```bash
     git cherry-pick --continue
+    ```
+
+---
+
+## Encontrando bug
+
+### Explicação
+
+- O **`git bisect`** é uma ferramenta do Git que automatiza o processo de busca pelo commit que introduziu um determinado problema, permitindo que você isole rapidamente o commit culpado.
+- Ao marcar um commit como bom e outro como ruim, o Git usa uma busca binária para identificar o commit que introduziu a mudança problemática.
+- Isso pode economizar muito tempo e esforço, especialmente em projetos grandes com muitos commits.
+
+### Prática
+
+- Vamos fazer por etapas.
+1. Iniciar o `bisect`:
+    
+    ```bash
+    git bisect
+    ```
+    
+2. Ver os hashs dos commits:
+    
+    ```bash
+    git log --oneline
+    ```
+    
+3. Falar onde está o commit sem o bug, ou seja, um commit bom `good`:
+    
+    ```bash
+    git bisect good f8a20e8
+    ```
+    
+4. Falar onde está o ultimo commit, ou um recente que tenha o bug, ou seja, um commit ruim `bad`:
+    
+    ```bash
+    git bisect bad 10a04d3
+    ```
+    
+5. Identificar se o commit mostrado tem o bug, para isso você vai olhar o(s) arquivo(s) para ver se existe esse bug, se tiver COM o bug você marcará como `bad`, se tiver SEM o bug você marcará como `good`:
+    
+    ```bash
+    git bisect good
+    ```
+    
+    ```bash
+    git bisect bad
+    ```
+    
+- Você testará até le falar que aquele commit tal existe o bug.
+- Agora você pode concertar o bug e salvar.
+- Para sair basta resetar:
+    
+    ```bash
+    git bisect reset
     ```
