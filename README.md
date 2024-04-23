@@ -23,6 +23,7 @@
 - [Diferença entre local e remoto](#diferença-entre-local-e-remoto)
 - [Apaguei meus commits](#apaguei-meus-commits)
 - [Reorganização do Histórico](#reorganização-do-histórico)
+- [Selecionando Commits específicos](#selecionando-commits-específicos)
 
 ---
 
@@ -75,6 +76,7 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 - [git add -p](#explicação)
 - [git reflog](#pelo-terminal)
 - [git rebase](#reorganização-do-histórico)
+- [git cherry-pick](#selecionando-commits-específicos)
 
 ---
 
@@ -1178,3 +1180,37 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
     ```
     
 - Ou você pode fazer o que você precisa fazer, depois você envia o que você precisa com um commit, então ele vai arrumar para você a alteração que você fez.
+
+---
+
+## Selecionando Commits específicos
+
+### Explicação
+
+- Um motivo para usar o comando **`git cherry-pick`** é quando você precisa aplicar uma correção ou feature específica de um branch para outro, sem precisar mergear toda a branch.
+- Por exemplo, imagine que você tem dois desenvolvedores trabalhando em duas branches diferentes, `branch-A` e `branch-B`. O desenvolvedor da `branch-A` descobriu e corrigiu um bug importante, mas o desenvolvedor da `branch-B` já fez muito progresso em seu trabalho e não quer mergear a `branch-A` inteira. Neste caso, você pode usar o comando `git cherry-pick` para pegar o commit específico que contém a correção do bug da `branch-A` e aplicá-lo na `branch-B`.Isso permite que você corrija o bug na `branch-B` sem precisar mergear toda a `branch-A`.
+
+### Prática
+
+- Primeiro tem que ficar claro que caso já houver o commit na branch que você quer, ele não fará.
+- Então isso é só para casos de commits q não existe na branch que você esta, exemplo: uma desatualização.
+- É necessário duas coisas, você está na branch que deseja copiar um commit para ela, e a hash do commit que você vai copiar.
+- Na branch que tem o commit:
+    
+    ```bash
+    git log --oneline
+    ```
+    
+- Copie a hash então vá para a branch que você quer copiar o commit e use o `git cherry-pick`:
+    
+    ```bash
+    git switch outra_branch
+    git cherry-pick abcdefg
+    ```
+    
+- Agora para confirmar as alterações, use o `git add` que é obrigatório para fazer essa confirmação.
+- No arquivo que houve a mudança, corrija os conflitos, então no terminal prossiga com o `--continue`, ou caso queria cancelar `--abort`:
+    
+    ```bash
+    git cherry-pick --continue
+    ```
