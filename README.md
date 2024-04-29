@@ -4,6 +4,7 @@
 - [Nomenclaturas](#nomenclaturas)
 - [Índice dos comandos](#índice-dos-comandos)
 - [Objetivo](#objetivo)
+- [Estados](#estados)
 - [Baixando Git](#baixando-git)
 - [Pré-Configuração](#pré-configuração)
 - [Ajeitando Github](#ajeitando-github)
@@ -105,6 +106,35 @@ Ele permite que você trabalhe em novas funcionalidades, correções de bugs ou 
 ### **Flexibilidade e Desempenho:**
 
 - Oferece um sistema distribuído que funciona de forma rápida e eficiente, mesmo em projetos grandes e complexos.
+
+---
+
+## Estados
+
+- O Git tem sempre 3 estágios.
+
+### Estágio 1 (Working Directory)
+
+- Ele acontece onde chamamos de “Working Directory”.
+- Que é o diretório de trabalho, onde está seus arquivos para edição e outros.
+
+### Estágio 2 (Stage Area)
+
+- Para criar commits é necessário estacionar as modificações em um lugar intermediário.
+- Esse lugar de chama “Stage Area”.
+- O Git não rastreia arquivos, ele rastreia conteúdos, patchs e outros.
+- Diretórios vazios nunca entram no repositório, por isso é encontrado diretórios com um arquivo e vazio escondido, com a extensão `.gitkeep`, para reservar esse diretório.
+- Então usando o `git add` é possível fazer um `git commit`, então ele empacota tudo e junta com metadados e juntar o commit com um `HEAD` (cabeça do grafo).
+- Mesmo assim é possível voltar atrás, usando o `git reset`.
+
+### Estágio 3 (Repository)
+
+- O terceiro estágio no Git é onde os commits são armazenados após serem confirmados.
+- Esse estágio é conhecido como "Repositório" ou "Repository".
+- Aqui, os commits são armazenados de forma permanente e organizados em um histórico linear de alterações.
+- Uma vez que os commits são feitos neste estágio, eles se tornam parte do histórico do projeto e podem ser referenciados por meio de hashes de commit.
+- O estágio 3 é essencial para manter um registro completo e preciso das alterações feitas no projeto ao longo do tempo.
+- O Git fornece várias ferramentas e comandos para navegar e manipular o histórico de commits neste estágio, permitindo aos desenvolvedores revisar, reverter ou mesclar alterações conforme necessário.
 
 ---
 
